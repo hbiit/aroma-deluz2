@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-purple-deep: #3b2367;
+  --color-purple-darkest: #241441;
+  --color-purple-ink: #1a0f30;
+  --color-gold: #c9a45c;
+  --color-gold-bright: #e3c77f;
+  --color-cream: #f7f2ea;
+  --color-ivory: #fdfbf7;
+  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-jost), system-ui, -apple-system, sans-serif;
+}
+
+body {
+  background-color: var(--color-ivory);
+  color: var(--color-purple-ink);
+  font-family: var(--font-sans);
+}
+
+@layer components {
+  .btn-gold {
+    @apply inline-block bg-gold px-8 py-3 font-sans text-xs font-semibold tracking-[0.2em] text-purple-ink uppercase transition hover:bg-gold-bright;
+  }
+  .btn-purple {
+    @apply inline-block bg-purple-deep px-8 py-3 font-sans text-xs font-semibold tracking-[0.2em] text-gold uppercase transition hover:bg-purple-darkest hover:text-gold-bright;
+  }
+  .eyebrow {
+    @apply font-sans text-[0.7rem] font-semibold tracking-[0.35em] text-gold uppercase;
+  }
+  .section-title {
+    @apply font-serif text-3xl font-medium tracking-[0.12em] text-gold uppercase md:text-4xl;
+  }
+  .input-lux {
+    @apply w-full border border-purple-deep/20 bg-white px-4 py-3 text-sm text-purple-ink placeholder:text-purple-ink/40 focus:border-gold focus:outline-none;
+  }
+}
