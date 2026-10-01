@@ -33,7 +33,7 @@ export default async function ProductsPage({
     <div className="mx-auto max-w-7xl px-4 py-12 md:px-8">
       <p className="eyebrow text-center">The collection</p>
       <h1 className="section-title mt-2 text-center">
-        {collectionTitle ?? (validCategory === "candle" ? "Candles" : validCategory === "perfume" ? "Perfumes" : "All Fragrances")}
+        {collectionTitle ?? (validCategory === "candle" ? "Candles" : validCategory === "perfume" ? "Perfumes" : "Candles & Perfumes")}
       </h1>
 
       <div className="mt-8 flex flex-wrap items-center justify-center gap-2">

@@ -29,7 +29,8 @@ export function Footer() {
             className="h-24 w-auto"
           />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-ivory/80">
-            Timeless fragrances. Unforgettable presence. Hand-poured in Lagos.
+            Scented candles &amp; fine perfumes — timeless fragrance,
+            hand-poured in Lagos.
           </p>
           <div className="mt-6 flex gap-4 text-gold">
             <a href="https://instagram.com" aria-label="Instagram" className="transition hover:text-gold-bright">
@@ -47,7 +48,7 @@ export function Footer() {
         <div>
           <h3 className="text-[0.7rem] font-semibold tracking-[0.25em] text-gold uppercase">Shop</h3>
           <ul className="mt-4 space-y-2 text-sm text-ivory/85">
-            <li><Link href="/products" className="transition hover:text-gold-bright">All Fragrances</Link></li>
+            <li><Link href="/products" className="transition hover:text-gold-bright">Shop All — Candles & Perfumes</Link></li>
             <li><Link href="/products?category=candle" className="transition hover:text-gold-bright">Candles</Link></li>
             <li><Link href="/products?category=perfume" className="transition hover:text-gold-bright">Perfumes</Link></li>
             <li><Link href="/cart" className="transition hover:text-gold-bright">Your Cart</Link></li>

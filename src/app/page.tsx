@@ -91,8 +91,8 @@ export default async function HomePage() {
             <em className="font-normal italic">leave a legacy.</em>
           </h1>
           <p className="mt-6 max-w-md text-sm leading-relaxed text-ivory/90 md:text-base">
-            Aroma De Luz creates timeless fragrances that celebrate elegance,
-            femininity, and unforgettable presence.
+            Hand-poured scented candles and fine perfumes that celebrate
+            elegance, femininity, and unforgettable presence.
           </p>
           <Link href="/products" className="btn-gold mt-10">
             Discover the collection
@@ -148,10 +148,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ============ 5 · FEATURED FRAGRANCES ============ */}
+      {/* ============ 5 · FEATURED PRODUCTS ============ */}
       <section className="bg-ivory py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <h2 className="section-title text-center">Featured Fragrances</h2>
+          <h2 className="section-title text-center">Featured Candles & Perfumes</h2>
           <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
             {featured.map((p) => (
               <ProductCard key={p.id} product={p} />
@@ -162,7 +162,7 @@ export default async function HomePage() {
               href="/products"
               className="text-[0.7rem] font-semibold tracking-[0.25em] text-purple-deep uppercase transition hover:text-gold"
             >
-              View all fragrances →
+              View all candles & perfumes →
             </Link>
           </div>
         </div>
