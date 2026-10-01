@@ -46,8 +46,8 @@ function buildHtml(order: EmailOrder, items: EmailOrderItem[]): string {
 <html><body style="margin:0;background:#f7f2ea;font-family:Georgia,serif;">
   <div style="max-width:600px;margin:0 auto;padding:32px 24px;">
     <div style="background:#241441;padding:28px;text-align:center;">
-      <div style="color:#c9a45c;font-size:28px;letter-spacing:6px;">AROMA</div>
-      <div style="color:#e3c77f;font-size:11px;letter-spacing:8px;margin-top:4px;">DELUZ</div>
+      <div style="color:#c9a45c;font-size:26px;letter-spacing:5px;">AROMA DE LUZ</div>
+      <div style="color:#e3c77f;font-size:10px;letter-spacing:8px;margin-top:6px;">ALL ABOUT SCENT</div>
     </div>
     <div style="background:#fdfbf7;padding:32px;border:1px solid #e5ddcf;">
       <p style="color:#c9a45c;font-size:11px;letter-spacing:3px;margin:0 0 8px;">THANK YOU FOR YOUR ORDER</p>
@@ -71,7 +71,7 @@ function buildHtml(order: EmailOrder, items: EmailOrderItem[]): string {
       </p>
     </div>
     <p style="text-align:center;color:#6b5f52;font-size:11px;font-family:Helvetica,Arial,sans-serif;margin-top:16px;">
-      © ${new Date().getFullYear()} Aroma Deluz · Hand-poured in Lagos
+      © ${new Date().getFullYear()} Aroma De Luz · Hand-poured in Lagos
     </p>
   </div>
 </body></html>`;
@@ -83,7 +83,7 @@ export async function sendOrderConfirmation(
 ): Promise<boolean> {
   const apiKey = process.env.MAILGUN_API_KEY;
   const domain = process.env.MAILGUN_DOMAIN;
-  const from = process.env.MAILGUN_FROM || `Aroma Deluz <orders@${domain ?? "example.com"}>`;
+  const from = process.env.MAILGUN_FROM || `Aroma De Luz <orders@${domain ?? "example.com"}>`;
 
   if (!apiKey || !domain) {
     console.log(
@@ -98,7 +98,7 @@ export async function sendOrderConfirmation(
     await client.messages.create(domain, {
       from,
       to: [order.email],
-      subject: `Your Aroma Deluz order ${order.reference} is confirmed`,
+      subject: `Your Aroma De Luz order ${order.reference} is confirmed`,
       html: buildHtml(order, items),
     });
     return true;

@@ -20,7 +20,7 @@ const TRUST_BADGES = [
 const TESTIMONIALS = [
   {
     quote:
-      "Aroma Deluz is pure luxury. The candles are sophisticated, long-lasting, and absolutely mesmerizing.",
+      "Aroma De Luz is pure luxury. The candles are sophisticated, long-lasting, and absolutely mesmerizing.",
     name: "Emily R.",
     city: "Victoria Island, Lagos",
   },
@@ -91,7 +91,7 @@ export default async function HomePage() {
             <em className="font-normal italic">leave a legacy.</em>
           </h1>
           <p className="mt-6 max-w-md text-sm leading-relaxed text-ivory/90 md:text-base">
-            Aroma Deluz creates timeless fragrances that celebrate elegance,
+            Aroma De Luz creates timeless fragrances that celebrate elegance,
             femininity, and unforgettable presence.
           </p>
           <Link href="/products" className="btn-gold mt-10">
@@ -179,7 +179,7 @@ export default async function HomePage() {
               is our heritage.
             </h2>
             <p className="mt-5 max-w-lg text-sm leading-relaxed text-purple-ink/80">
-              At Aroma Deluz, every scent is a work of art — meticulously
+              At Aroma De Luz, every scent is a work of art — meticulously
               blended with the world&apos;s finest ingredients. We believe in
               timeless elegance, sustainable luxury, and the emotion that only
               a signature scent can evoke.
@@ -211,7 +211,7 @@ export default async function HomePage() {
           <div className="relative aspect-[4/5] overflow-hidden">
             <Image
               src={STORY_IMAGE}
-              alt="Aroma Deluz candle styling"
+              alt="Aroma De Luz candle styling"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="object-cover"

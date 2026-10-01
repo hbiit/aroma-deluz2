@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/components/cart-provider";
@@ -108,6 +109,8 @@ export function Header() {
         }`}
       >
         <div className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8">
+          {/* Mobile spacer keeps the centered logo centered at every width */}
+          <div className="flex-1 lg:hidden" aria-hidden />
           <nav className="hidden flex-1 items-center gap-6 lg:flex">
             {left.map((l) => (
               <Link
@@ -122,14 +125,16 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Logo lockup */}
-          <Link href="/" className="group flex flex-col items-center leading-none">
-            <span className="font-serif text-2xl font-semibold tracking-[0.25em] text-purple-deep transition group-hover:text-purple-ink md:text-3xl">
-              AROMA
-            </span>
-            <span className="mt-0.5 text-[0.55rem] font-medium tracking-[0.6em] text-gold uppercase">
-              Deluz
-            </span>
+          {/* Brand logo — the official mark contains the full wordmark */}
+          <Link href="/" className="group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Image
+              src="/logo-transparent.png"
+              alt="Aroma De Luz — All About Scent"
+              width={96}
+              height={60}
+              priority
+              className="h-12 w-auto transition group-hover:opacity-90 md:h-14"
+            />
           </Link>
 
           <div className="flex flex-1 items-center justify-end gap-5">

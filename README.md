@@ -1,4 +1,4 @@
-# Aroma Deluz — Luxury Candles & Perfumes Store
+# Aroma De Luz — All About Scent · Luxury Candles & Perfumes Store
 
 Full-stack shop built with **Next.js 16**, **Supabase** (Postgres + Google auth), **Paystack** (NGN payments) and **Mailgun** (confirmation emails). The canonical spec lives in [aroma.md](aroma.md).
 
@@ -52,7 +52,7 @@ Until `PAYSTACK_SECRET_KEY` is set, checkout runs in labeled demo mode.
 1. Create a [Mailgun](https://www.mailgun.com/) account; the **sandbox domain** is fine for development.
 2. Copy the **API key** into `MAILGUN_API_KEY` and the sandbox (or custom) domain into `MAILGUN_DOMAIN`.
 3. In Mailgun, add your recipient email to **Authorized Recipients** (sandbox limitation).
-4. `MAILGUN_FROM` defaults to `Aroma Deluz <orders@<domain>>`.
+4. `MAILGUN_FROM` defaults to `Aroma De Luz <orders@<domain>>`.
 
 Every successfully paid order triggers one HTML confirmation email; the
 `orders.email_sent_at` column guarantees no duplicates.

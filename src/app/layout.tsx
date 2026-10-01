@@ -20,11 +20,11 @@ const jost = Jost({
 
 export const metadata: Metadata = {
   title: {
-    default: "Aroma Deluz — Scented Candles & Perfumes",
-    template: "%s · Aroma Deluz",
+    default: "Aroma De Luz — All About Scent",
+    template: "%s · Aroma De Luz",
   },
   description:
-    "Aroma Deluz crafts luxury scented candles and perfumes — timeless fragrances celebrating elegance and unforgettable presence. Delivered across Nigeria.",
+    "Aroma De Luz crafts luxury scented candles and perfumes — timeless fragrances celebrating elegance and unforgettable presence. Delivered across Nigeria.",
 };
 
 export default function RootLayout({

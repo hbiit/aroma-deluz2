@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { COLLECTIONS } from "@/lib/products";
 
 export function Footer() {
@@ -20,10 +21,13 @@ export function Footer() {
       {/* Main footer */}
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-2 md:px-8 lg:grid-cols-5">
         <div className="lg:col-span-2">
-          <div className="flex flex-col leading-none">
-            <span className="font-serif text-3xl font-semibold tracking-[0.25em] text-gold">AROMA</span>
-            <span className="mt-1 text-[0.6rem] font-medium tracking-[0.6em] text-gold-bright uppercase">Deluz</span>
-          </div>
+          <Image
+            src="/logo-transparent.png"
+            alt="Aroma De Luz — All About Scent"
+            width={150}
+            height={96}
+            className="h-24 w-auto"
+          />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-ivory/80">
             Timeless fragrances. Unforgettable presence. Hand-poured in Lagos.
           </p>
@@ -81,7 +85,7 @@ export function Footer() {
 
       <div className="border-t border-gold/20">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-5 text-xs text-ivory/70 md:flex-row md:px-8">
-          <p>© {new Date().getFullYear()} Aroma Deluz. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Aroma De Luz. All rights reserved.</p>
           <p>Privacy Policy · Terms of Service</p>
         </div>
       </div>

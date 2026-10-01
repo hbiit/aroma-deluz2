@@ -26,7 +26,7 @@ insert into public.products (slug, name, description, category, collection, pric
    'Lavender and chamomile sweetened with honey — calm, poured by hand in Lagos.',
    'candle', 'Floral Bouquets', 1800000, array['lavender','chamomile','honey'],
    'https://images.pexels.com/photos/35505859/pexels-photo-35505859.jpeg?auto=compress&cs=tinysrgb&w=1200', 40, false),
-  ('aroma-deluz-signature', 'Aroma Deluz Signature',
+  ('aroma-deluz-signature', 'Aroma De Luz Signature',
    'The house perfume: bergamot brightening into jasmine and a base of rare oud. Our legacy in a bottle.',
    'perfume', 'Exclusive Collection', 14500000, array['bergamot','jasmine','oud'],
    'https://images.pexels.com/photos/10924522/pexels-photo-10924522.jpeg?auto=compress&cs=tinysrgb&w=1200', 12, true),
