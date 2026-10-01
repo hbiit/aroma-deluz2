@@ -45,7 +45,10 @@ for (let y = 0; y < H; y++) {
 if (maxX <= minX) throw new Error("No foreground found");
 console.log(`art bbox: ${minX},${minY} -> ${maxX},${maxY} (${maxX - minX}x${maxY - minY})`);
 
-// 2) Crop with a margin, cut the background to transparency with a soft edge.
+// 2) Crop with a margin, cut the background to transparency with a soft
+//    edge, then UN-BLEND the plum from semi-transparent pixels so the
+//    anti-aliased edges stay pure gold (no muddy halo on any surface):
+//    observed = a*F + (1-a)*bg  =>  F = (observed - (1-a)*bg) / a
 const M = 10;
 const cw = maxX - minX + M * 2;
 const ch = maxY - minY + M * 2;
@@ -57,10 +60,13 @@ for (let y = 0; y < ch; y++) {
     const si = (sy * W + sx) * 4;
     const di = (y * cw + x) * 4;
     const d = dist(data[si], data[si + 1], data[si + 2]);
-    const alpha = d < 30 ? 0 : d > 60 ? 255 : Math.round(((d - 30) / 30) * 255);
-    out.data[di] = data[si];
-    out.data[di + 1] = data[si + 1];
-    out.data[di + 2] = data[si + 2];
+    const a = d < 30 ? 0 : d > 60 ? 1 : (d - 30) / 30;
+    const alpha = Math.round(a * 255);
+    for (let c = 0; c < 3; c++) {
+      const observed = data[si + c];
+      const fg = a > 0 ? (observed - (1 - a) * bg[c]) / a : observed;
+      out.data[di + c] = Math.max(0, Math.min(255, Math.round(fg)));
+    }
     out.data[di + 3] = alpha;
   }
 }

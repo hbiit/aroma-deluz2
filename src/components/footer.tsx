@@ -22,7 +22,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-2 md:px-8 lg:grid-cols-5">
         <div className="lg:col-span-2">
           <Image
-            src="/logo-transparent.png"
+            src="/brand/logo.png"
             alt="Aroma De Luz — All About Scent"
             width={150}
             height={96}

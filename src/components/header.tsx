@@ -125,15 +125,20 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Brand logo — the official mark contains the full wordmark */}
-          <Link href="/" className="group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+          {/* Brand logo on a deep-purple plaque — gold reads vividly on
+              the brand purple, exactly as in the original artwork */}
+          <Link
+            href="/"
+            className="group absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-purple-darkest px-3 py-1.5 shadow-sm transition group-hover:shadow-md"
+            aria-label="Aroma De Luz — All About Scent"
+          >
             <Image
-              src="/logo-transparent.png"
-              alt="Aroma De Luz — All About Scent"
+              src="/brand/logo.png"
+              alt=""
               width={96}
               height={60}
               priority
-              className="h-12 w-auto transition group-hover:opacity-90 md:h-14"
+              className="h-10 w-auto md:h-11"
             />
           </Link>
 
