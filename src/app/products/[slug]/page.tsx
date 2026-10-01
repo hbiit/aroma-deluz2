@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getProductBySlug, getProducts } from "@/lib/products";
+import { KIND_EYEBROW, getProductBySlug, getProducts } from "@/lib/products";
 import { AddToCartPanel } from "@/components/add-to-cart-panel";
 import { ProductCard } from "@/components/product-card";
 import { formatNaira } from "@/lib/format";
@@ -49,7 +49,7 @@ export default async function ProductPage({ params }: Props) {
         </div>
 
         <div className="flex flex-col">
-          <p className="eyebrow">{product.category === "candle" ? "Scented candle" : "Eau de parfum"}</p>
+          <p className="eyebrow">{KIND_EYEBROW[product.category]}</p>
           <h1 className="mt-3 font-serif text-4xl leading-tight text-purple-ink md:text-5xl">
             {product.name}
           </h1>

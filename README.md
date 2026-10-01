@@ -9,15 +9,16 @@ npm install
 npm run dev          # http://localhost:3000
 ```
 
-Without any environment variables the site runs in **demo mode**: 12 seeded
-products, a working cart, and a checkout that confirms orders without taking
+Without any environment variables the site runs in **demo mode**: 19 seeded
+products across 7 kinds (candles, perfume, EDP, EDT, EDC, body mists, hair
+perfume), a working cart, and a checkout that confirms orders without taking
 payment (clearly labeled "Demo mode"). Add credentials below to go live.
 
 ## 1 · Supabase (database)
 
 1. Create a project at [database.new](https://database.new).
 2. Open **SQL Editor**, paste the contents of [`supabase/migration.sql`](supabase/migration.sql), run it.
-3. Paste the contents of [`supabase/seed.sql`](supabase/seed.sql), run it (12 products).
+3. Paste the contents of [`supabase/seed.sql`](supabase/seed.sql), run it (19 products across 7 kinds).
 4. Copy `Project URL`, `anon key` and `service_role key` from **Project Settings → API** into `.env.local` (see [.env.example](.env.example)).
 
 The catalog then serves from Postgres; orders, order items and newsletter

@@ -8,7 +8,7 @@ create table if not exists public.products (
   slug text not null unique,
   name text not null,
   description text,
-  category text not null check (category in ('candle','perfume')),
+  category text not null check (category in ('candle','perfume','edp','edt','edc','body-mist','hair-perfume')),
   collection text,
   price_kobo integer not null check (price_kobo > 0),
   scent_notes text[],

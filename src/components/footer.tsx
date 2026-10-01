@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { COLLECTIONS } from "@/lib/products";
+import { COLLECTIONS, KIND_BADGE, PRODUCT_KINDS } from "@/lib/products";
 
 export function Footer() {
   return (
@@ -48,9 +48,15 @@ export function Footer() {
         <div>
           <h3 className="text-[0.7rem] font-semibold tracking-[0.25em] text-gold uppercase">Shop</h3>
           <ul className="mt-4 space-y-2 text-sm text-ivory/85">
-            <li><Link href="/products" className="transition hover:text-gold-bright">Shop All — Candles & Perfumes</Link></li>
+            <li><Link href="/products" className="transition hover:text-gold-bright">Shop All — Candles & Fragrances</Link></li>
             <li><Link href="/products?category=candle" className="transition hover:text-gold-bright">Candles</Link></li>
-            <li><Link href="/products?category=perfume" className="transition hover:text-gold-bright">Perfumes</Link></li>
+            {PRODUCT_KINDS.filter((kind) => kind !== "candle").map((kind) => (
+              <li key={kind}>
+                <Link href={`/products?category=${kind}`} className="transition hover:text-gold-bright">
+                  {KIND_BADGE[kind]}
+                </Link>
+              </li>
+            ))}
             <li><Link href="/cart" className="transition hover:text-gold-bright">Your Cart</Link></li>
           </ul>
         </div>

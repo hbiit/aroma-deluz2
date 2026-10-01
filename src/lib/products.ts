@@ -1,4 +1,66 @@
-export type Category = "candle" | "perfume";
+/**
+ * The seven product kinds the shop displays. `perfume` is the pure-parfum
+ * (extrait) tier; the rest ladder down through EDP, EDT and EDC to mists.
+ */
+export const PRODUCT_KINDS = [
+  "candle",
+  "perfume",
+  "edp",
+  "edt",
+  "edc",
+  "body-mist",
+  "hair-perfume",
+] as const;
+
+export type Category = (typeof PRODUCT_KINDS)[number];
+
+export function isCategory(value: string): value is Category {
+  return (PRODUCT_KINDS as readonly string[]).includes(value);
+}
+
+/** Plural labels for filter pills and catalog headings. */
+export const KIND_PLURAL: Record<Category, string> = {
+  candle: "Candles",
+  perfume: "Perfumes",
+  edp: "Eau de Parfum",
+  edt: "Eau de Toilette",
+  edc: "Eau de Cologne",
+  "body-mist": "Body Mists",
+  "hair-perfume": "Hair Perfumes",
+};
+
+/** Singular badge chip labels on product cards. */
+export const KIND_BADGE: Record<Category, string> = {
+  candle: "Scented Candle",
+  perfume: "Perfume",
+  edp: "Eau de Parfum",
+  edt: "Eau de Toilette",
+  edc: "Eau de Cologne",
+  "body-mist": "Body Mist",
+  "hair-perfume": "Hair Perfume",
+};
+
+/** Sentence-case eyebrows on the product detail page. */
+export const KIND_EYEBROW: Record<Category, string> = {
+  candle: "Scented candle",
+  perfume: "Perfume",
+  edp: "Eau de parfum",
+  edt: "Eau de toilette",
+  edc: "Eau de cologne",
+  "body-mist": "Body mist",
+  "hair-perfume": "Hair perfume",
+};
+
+/** One-line taglines for the homepage "Shop by Product Type" tiles. */
+export const KIND_TAGLINES: Record<Category, string> = {
+  candle: "Hand-poured glow",
+  perfume: "The house legacy",
+  edp: "Signature intensity",
+  edt: "Everyday elegance",
+  edc: "Bright & brief",
+  "body-mist": "A weightless veil",
+  "hair-perfume": "Scented silk",
+};
 
 export interface Product {
   id: string;
@@ -78,11 +140,18 @@ export const DEMO_PRODUCTS: Product[] = [
   { id: "d05", slug: "oud-amber-noir", name: "Oud & Amber Noir", description: "Our most opulent candle: smoky oud, black orchid and glowing amber for long evenings.", category: "candle", collection: "Exclusive Collection", price_kobo: 4500000, scent_notes: ["oud", "black orchid", "amber"], image_url: "https://images.pexels.com/photos/34433313/pexels-photo-34433313.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 15, featured: true },
   { id: "d06", slug: "lavender-aurum", name: "Lavender Aurum", description: "Lavender and chamomile sweetened with honey — calm, poured by hand in Lagos.", category: "candle", collection: "Floral Bouquets", price_kobo: 1800000, scent_notes: ["lavender", "chamomile", "honey"], image_url: "https://images.pexels.com/photos/35505859/pexels-photo-35505859.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 40, featured: false },
   { id: "d07", slug: "aroma-deluz-signature", name: "Aroma De Luz Signature", description: "The house perfume: bergamot brightening into jasmine and a base of rare oud. Our legacy in a bottle.", category: "perfume", collection: "Exclusive Collection", price_kobo: 14500000, scent_notes: ["bergamot", "jasmine", "oud"], image_url: "https://images.pexels.com/photos/10924522/pexels-photo-10924522.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 12, featured: true },
-  { id: "d08", slug: "rose-noir-elixir", name: "Rose Noir Elixir", description: "Rose and saffron over dark chocolate — a magnetic evening eau de parfum.", category: "perfume", collection: "Floral Bouquets", price_kobo: 9800000, scent_notes: ["rose", "saffron", "dark chocolate"], image_url: "https://images.pexels.com/photos/12461865/pexels-photo-12461865.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 18, featured: true },
+  { id: "d08", slug: "rose-noir-elixir", name: "Rose Noir Elixir", description: "Rose and saffron over dark chocolate — a magnetic evening eau de parfum.", category: "edp", collection: "Floral Bouquets", price_kobo: 9800000, scent_notes: ["rose", "saffron", "dark chocolate"], image_url: "https://images.pexels.com/photos/12461865/pexels-photo-12461865.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 18, featured: true },
   { id: "d09", slug: "lumiere-dor", name: "Lumière d'Or", description: "Neroli and white tea over vetiver; light, radiant and effortless for every day.", category: "perfume", collection: "Fresh & Radiant", price_kobo: 8600000, scent_notes: ["neroli", "white tea", "vetiver"], image_url: "https://images.pexels.com/photos/13516802/pexels-photo-13516802.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 22, featured: false },
   { id: "d10", slug: "velvet-oud", name: "Velvet Oud", description: "Velvet plum and tobacco folded into oud — warmth that lingers long after you leave.", category: "perfume", collection: "Warm & Sensual", price_kobo: 12000000, scent_notes: ["oud", "velvet plum", "tobacco"], image_url: "https://images.pexels.com/photos/14736080/pexels-photo-14736080.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 16, featured: false },
   { id: "d11", slug: "fleur-eternelle", name: "Fleur Éternelle", description: "Peony and lily wrapped in white musk — timeless, weightless florals.", category: "perfume", collection: "Floral Bouquets", price_kobo: 7500000, scent_notes: ["peony", "lily", "white musk"], image_url: "https://images.pexels.com/photos/15096784/pexels-photo-15096784.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 25, featured: false },
   { id: "d12", slug: "ambre-solaire", name: "Ambre Solaire", description: "Blood orange and amber warmed by cedar — sunset, bottled.", category: "perfume", collection: "Warm & Sensual", price_kobo: 6500000, scent_notes: ["amber", "blood orange", "cedar"], image_url: "https://images.pexels.com/photos/15574229/pexels-photo-15574229.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 28, featured: false },
+  { id: "d13", slug: "jardin-de-minuit", name: "Jardin de Minuit", description: "A midnight garden distilled: gardenia and night-blooming jasmine glowing over warm amber.", category: "edp", collection: "Floral Bouquets", price_kobo: 7800000, scent_notes: ["gardenia", "night jasmine", "amber"], image_url: "https://images.pexels.com/photos/34690231/pexels-photo-34690231.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 20, featured: false },
+  { id: "d14", slug: "nuit-blanche", name: "Nuit Blanche", description: "White oud and iris folded into cashmere wood — an eau de parfum for nights that become legend.", category: "edp", collection: "Exclusive Collection", price_kobo: 9500000, scent_notes: ["white oud", "iris", "cashmere wood"], image_url: "https://images.pexels.com/photos/36779953/pexels-photo-36779953.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 14, featured: false },
+  { id: "d15", slug: "brise-dete", name: "Brise d'Été", description: "Bergamot and green tea on a bed of white musk — the first cool breeze of a summer morning.", category: "edt", collection: "Fresh & Radiant", price_kobo: 5400000, scent_notes: ["bergamot", "green tea", "white musk"], image_url: "https://images.pexels.com/photos/34089128/pexels-photo-34089128.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 26, featured: false },
+  { id: "d16", slug: "riviera-citrus", name: "Riviera Citrus", description: "Sicilian lemon and crushed basil over vetiver — a crisp cologne for bright, easy days.", category: "edc", collection: "Fresh & Radiant", price_kobo: 4200000, scent_notes: ["sicilian lemon", "basil", "vetiver"], image_url: "https://images.pexels.com/photos/11577068/pexels-photo-11577068.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 30, featured: false },
+  { id: "d17", slug: "petal-veil", name: "Petal Veil", description: "A weightless rose-water mist laced with peony and soft musk — scent as sheer as silk.", category: "body-mist", collection: "Floral Bouquets", price_kobo: 1950000, scent_notes: ["rose water", "peony", "soft musk"], image_url: "https://images.pexels.com/photos/5612317/pexels-photo-5612317.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 48, featured: false },
+  { id: "d18", slug: "vanille-voile", name: "Vanille Voile", description: "Vanilla and toasted coconut wrapped in tonka — a warm, enveloping mist for skin and mood.", category: "body-mist", collection: "Warm & Sensual", price_kobo: 1700000, scent_notes: ["vanilla", "coconut", "tonka"], image_url: "https://images.pexels.com/photos/31707005/pexels-photo-31707005.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 44, featured: false },
+  { id: "d19", slug: "satin-bloom", name: "Satin Bloom", description: "Jasmine sambac and silk amber in a featherlight mist that leaves hair luminous and scented.", category: "hair-perfume", collection: "Floral Bouquets", price_kobo: 2300000, scent_notes: ["jasmine sambac", "silk amber", "satin musk"], image_url: "https://images.pexels.com/photos/12428350/pexels-photo-12428350.jpeg?auto=compress&cs=tinysrgb&w=1200", stock: 36, featured: false },
 ];
 
 export interface ProductFilters {

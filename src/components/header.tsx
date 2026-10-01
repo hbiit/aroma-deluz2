@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { KIND_BADGE, PRODUCT_KINDS } from "@/lib/products";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/components/cart-provider";
 import { useAuth } from "@/components/auth-provider";
@@ -71,6 +72,80 @@ function AccountMenu() {
   );
 }
 
+const FRAGRANCE_KINDS = PRODUCT_KINDS.filter((kind) => kind !== "candle");
+
+function FragrancesMenu() {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        className={`flex items-center gap-1 text-[0.7rem] font-medium tracking-[0.2em] uppercase transition ${
+          open ? "text-gold" : "text-purple-ink hover:text-gold"
+        }`}
+      >
+        Fragrances
+        <svg
+          viewBox="0 0 12 12"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          aria-hidden="true"
+          className={`h-2.5 w-2.5 transition ${open ? "rotate-180" : ""}`}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2 4l4 4 4-4" />
+        </svg>
+      </button>
+      {open && (
+        <div
+          role="menu"
+          className="absolute left-0 top-full z-50 w-56 border border-purple-deep/15 bg-white py-2 shadow-xl"
+        >
+          {FRAGRANCE_KINDS.map((kind) => (
+            <Link
+              key={kind}
+              href={`/products?category=${kind}`}
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              className="block px-4 py-2 text-[0.7rem] tracking-[0.18em] text-purple-ink uppercase transition hover:bg-cream hover:text-gold"
+            >
+              {KIND_BADGE[kind]}
+            </Link>
+          ))}
+          <Link
+            href="/products"
+            role="menuitem"
+            onClick={() => setOpen(false)}
+            className="mt-1 block border-t border-purple-deep/10 px-4 py-2 text-[0.7rem] tracking-[0.18em] text-purple-ink/70 uppercase transition hover:bg-cream hover:text-gold"
+          >
+            All fragrances
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function Header() {
   const { count, hydrated } = useCart();
   const [scrolled, setScrolled] = useState(false);
@@ -86,7 +161,6 @@ export function Header() {
   const left = [
     { href: "/products", label: "Shop" },
     { href: "/products?category=candle", label: "Candles" },
-    { href: "/products?category=perfume", label: "Perfumes" },
   ];
   const right = [
     { href: "/#story", label: "Our Story" },
@@ -123,6 +197,7 @@ export function Header() {
                 {l.label}
               </Link>
             ))}
+            <FragrancesMenu />
           </nav>
 
           {/* Brand logo on a deep-purple plaque — gold reads vividly on

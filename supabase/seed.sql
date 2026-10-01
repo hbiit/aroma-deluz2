@@ -1,4 +1,6 @@
--- Aroma Deluz — 12-product seed (6 candles, 6 perfumes, 4 collections)
+-- Aroma Deluz — 19-product seed across 7 product kinds
+-- (6 candles, 4 perfumes, 3 eau de parfum, 2 eau de toilette, 1 eau de cologne,
+--  2 body mists, 1 hair perfume) in 4 collections.
 -- Prices in kobo (NGN x 100). Images are verified Pexels URLs.
 
 insert into public.products (slug, name, description, category, collection, price_kobo, scent_notes, image_url, stock, featured) values
@@ -32,7 +34,7 @@ insert into public.products (slug, name, description, category, collection, pric
    'https://images.pexels.com/photos/10924522/pexels-photo-10924522.jpeg?auto=compress&cs=tinysrgb&w=1200', 12, true),
   ('rose-noir-elixir', 'Rose Noir Elixir',
    'Rose and saffron over dark chocolate — a magnetic evening eau de parfum.',
-   'perfume', 'Floral Bouquets', 9800000, array['rose','saffron','dark chocolate'],
+   'edp', 'Floral Bouquets', 9800000, array['rose','saffron','dark chocolate'],
    'https://images.pexels.com/photos/12461865/pexels-photo-12461865.jpeg?auto=compress&cs=tinysrgb&w=1200', 18, true),
   ('lumiere-dor', 'Lumière d''Or',
    'Neroli and white tea over vetiver; light, radiant and effortless for every day.',
@@ -49,5 +51,38 @@ insert into public.products (slug, name, description, category, collection, pric
   ('ambre-solaire', 'Ambre Solaire',
    'Blood orange and amber warmed by cedar — sunset, bottled.',
    'perfume', 'Warm & Sensual', 6500000, array['amber','blood orange','cedar'],
-   'https://images.pexels.com/photos/15574229/pexels-photo-15574229.jpeg?auto=compress&cs=tinysrgb&w=1200', 28, false)
+   'https://images.pexels.com/photos/15574229/pexels-photo-15574229.jpeg?auto=compress&cs=tinysrgb&w=1200', 28, false),
+  ('jardin-de-minuit', 'Jardin de Minuit',
+   'A midnight garden distilled: gardenia and night-blooming jasmine glowing over warm amber.',
+   'edp', 'Floral Bouquets', 7800000, array['gardenia','night jasmine','amber'],
+   'https://images.pexels.com/photos/34690231/pexels-photo-34690231.jpeg?auto=compress&cs=tinysrgb&w=1200', 20, false),
+  ('nuit-blanche', 'Nuit Blanche',
+   'White oud and iris folded into cashmere wood — an eau de parfum for nights that become legend.',
+   'edp', 'Exclusive Collection', 9500000, array['white oud','iris','cashmere wood'],
+   'https://images.pexels.com/photos/36779953/pexels-photo-36779953.jpeg?auto=compress&cs=tinysrgb&w=1200', 14, false),
+  ('brise-dete', 'Brise d''Été',
+   'Bergamot and green tea on a bed of white musk — the first cool breeze of a summer morning.',
+   'edt', 'Fresh & Radiant', 5400000, array['bergamot','green tea','white musk'],
+   'https://images.pexels.com/photos/34089128/pexels-photo-34089128.jpeg?auto=compress&cs=tinysrgb&w=1200', 26, false),
+  ('riviera-citrus', 'Riviera Citrus',
+   'Sicilian lemon and crushed basil over vetiver — a crisp cologne for bright, easy days.',
+   'edc', 'Fresh & Radiant', 4200000, array['sicilian lemon','basil','vetiver'],
+   'https://images.pexels.com/photos/11577068/pexels-photo-11577068.jpeg?auto=compress&cs=tinysrgb&w=1200', 30, false),
+  ('petal-veil', 'Petal Veil',
+   'A weightless rose-water mist laced with peony and soft musk — scent as sheer as silk.',
+   'body-mist', 'Floral Bouquets', 1950000, array['rose water','peony','soft musk'],
+   'https://images.pexels.com/photos/5612317/pexels-photo-5612317.jpeg?auto=compress&cs=tinysrgb&w=1200', 48, false),
+  ('vanille-voile', 'Vanille Voile',
+   'Vanilla and toasted coconut wrapped in tonka — a warm, enveloping mist for skin and mood.',
+   'body-mist', 'Warm & Sensual', 1700000, array['vanilla','coconut','tonka'],
+   'https://images.pexels.com/photos/31707005/pexels-photo-31707005.jpeg?auto=compress&cs=tinysrgb&w=1200', 44, false),
+  ('satin-bloom', 'Satin Bloom',
+   'Jasmine sambac and silk amber in a featherlight mist that leaves hair luminous and scented.',
+   'hair-perfume', 'Floral Bouquets', 2300000, array['jasmine sambac','silk amber','satin musk'],
+   'https://images.pexels.com/photos/12428350/pexels-photo-12428350.jpeg?auto=compress&cs=tinysrgb&w=1200', 36, false)
 on conflict (slug) do nothing;
+
+-- Self-heal for catalogs seeded before the product-kind expansion: the insert
+-- above uses `on conflict (slug) do nothing`, so a pre-existing row keeps its
+-- old category. Re-classify it explicitly (idempotent).
+update public.products set category = 'edp' where slug = 'rose-noir-elixir' and category = 'perfume';

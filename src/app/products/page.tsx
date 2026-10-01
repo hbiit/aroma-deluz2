@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { COLLECTIONS, getProducts } from "@/lib/products";
+import { COLLECTIONS, KIND_PLURAL, PRODUCT_KINDS, getProducts, isCategory } from "@/lib/products";
 import { ProductCard } from "@/components/product-card";
 
 export const metadata = { title: "Shop" };
@@ -15,7 +15,7 @@ export default async function ProductsPage({
   searchParams: Promise<SearchParams>;
 }) {
   const { category, collection } = await searchParams;
-  const validCategory = category === "candle" || category === "perfume" ? category : undefined;
+  const validCategory = category && isCategory(category) ? category : undefined;
   const products = await getProducts({ category: validCategory, collection });
 
   const collectionTitle = COLLECTIONS.find((c) => c.slug === collection)?.title;
@@ -33,19 +33,18 @@ export default async function ProductsPage({
     <div className="mx-auto max-w-7xl px-4 py-12 md:px-8">
       <p className="eyebrow text-center">The collection</p>
       <h1 className="section-title mt-2 text-center">
-        {collectionTitle ?? (validCategory === "candle" ? "Candles" : validCategory === "perfume" ? "Perfumes" : "Candles & Perfumes")}
+        {collectionTitle ?? (validCategory ? KIND_PLURAL[validCategory] : "Candles & Fragrances")}
       </h1>
 
       <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
         <FilterPill href={buildHref({ category: undefined })} active={!validCategory}>
           Everything
         </FilterPill>
-        <FilterPill href={buildHref({ category: "candle" })} active={validCategory === "candle"}>
-          Candles
-        </FilterPill>
-        <FilterPill href={buildHref({ category: "perfume" })} active={validCategory === "perfume"}>
-          Perfumes
-        </FilterPill>
+        {PRODUCT_KINDS.map((kind) => (
+          <FilterPill key={kind} href={buildHref({ category: kind })} active={validCategory === kind}>
+            {KIND_PLURAL[kind]}
+          </FilterPill>
+        ))}
         <span className="mx-2 hidden h-4 w-px bg-purple-deep/20 md:block" />
         {COLLECTIONS.map((c) => (
           <FilterPill

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/components/cart-provider";
 import { formatNaira } from "@/lib/format";
-import type { Product } from "@/lib/products";
+import { KIND_BADGE, type Product } from "@/lib/products";
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
@@ -22,7 +22,7 @@ export function ProductCard({ product }: { product: Product }) {
           />
         )}
         <span className="absolute top-3 right-3 bg-purple-deep/85 px-2 py-1 text-[0.6rem] tracking-[0.15em] text-gold uppercase">
-          {product.category === "candle" ? "Candle" : "Eau de Parfum"}
+          {KIND_BADGE[product.category]}
         </span>
       </Link>
 

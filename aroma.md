@@ -1,6 +1,6 @@
 # Aroma De Luz — Product Requirements Document (PRD)
 
-**Product:** Aroma De Luz — luxury e-commerce storefront for scented candles & perfumes
+**Product:** Aroma De Luz — luxury e-commerce storefront for scented candles & fine fragrance (candles, perfume, eau de parfum, eau de toilette, eau de cologne, body mists, hair perfumes)
 **Stack:** Next.js 16 (App Router, TypeScript, Tailwind CSS v4) · Supabase (Postgres + Google Auth) · Paystack (NGN payments) · Mailgun (transactional email)
 **Currency:** Nigerian Naira (₦, NGN) — stored as integers in kobo
 **Status:** Approved mission — this file is the canonical spec every later pass follows.
@@ -45,12 +45,13 @@ Section order, exactly:
 2. **Header** — nav left (Shop, Collections, Bestsellers), centered logotype, nav right (About, Contact), account icon (Google sign-in state), cart icon with live count badge.
 3. **Hero with promotional video** — full-bleed autoplaying, muted, looping stock video (candlelight/perfume) with a deep-purple scrim; gold eyebrow "CRAFTED TO CAPTIVATE", large serif headline in gold, sub-copy, gold CTA "DISCOVER THE COLLECTION". Trust-badge row beneath: Clean ingredients · Long-lasting performance · Hand-poured in Lagos · Luxury packaging.
 4. **Shop by Collection** — 4 image cards (Floral Bouquets, Warm & Sensual, Fresh & Radiant, Exclusive Collection), one-line description + SHOP NOW, linking to `/products?collection=…`.
-5. **Featured Fragrances** — product-card row (image, name, category caption, ₦ price, ADD TO CART) + "VIEW ALL FRAGRANCES →".
-6. **Our Story** — editorial split: text left (gold eyebrow, serif heading, body, DISCOVER OUR CRAFT button, 4 icon bullets), image right.
-7. **Promo band** — deep purple: "20% OFF — Because you deserve something exquisite." + SHOP THE SALE button.
-8. **Testimonials** — "LOVED BY OUR CLIENTS": 3 quote cards, gold stars, reviewer name & city, arrows.
-9. **Newsletter band** — deep purple, floral image left: "Stay inspired & be the first to know" + email input + SIGN ME UP → stores to `subscribers`.
-10. **Footer** — brand blurb + socials; columns Shop / Collections / Customer Care / About; right rail with shipping, returns, secure payments (Paystack) callouts; legal bar.
+5. **Shop by Product Type** — 7 slim tiles (Scented Candle, Perfume, Eau de Parfum, Eau de Toilette, Eau de Cologne, Body Mist, Hair Perfume) with one-line taglines, linking to `/products?category=…`.
+6. **Featured Fragrances** — product-card row (image, name, category caption, ₦ price, ADD TO CART) + "VIEW ALL CANDLES & FRAGRANCES →".
+7. **Our Story** — editorial split: text left (gold eyebrow, serif heading, body, DISCOVER OUR CRAFT button, 4 icon bullets), image right.
+8. **Promo band** — deep purple: "20% OFF — Because you deserve something exquisite." + SHOP THE SALE button.
+9. **Testimonials** — "LOVED BY OUR CLIENTS": 3 quote cards, gold stars, reviewer name & city, arrows.
+10. **Newsletter band** — deep purple, floral image left: "Stay inspired & be the first to know" + email input + SIGN ME UP → stores to `subscribers`.
+11. **Footer** — brand blurb + socials; columns Shop / Collections / Customer Care / About; right rail with shipping, returns, secure payments (Paystack) callouts; legal bar.
 
 Interior pages keep the same language: cream/ivory backgrounds, purple bands, gold serif headings.
 
@@ -62,7 +63,7 @@ Interior pages keep the same language: cream/ivory backgrounds, purple bands, go
 | Route | Type | Purpose |
 |---|---|---|
 | `/` | Server | Homepage per §2; featured products & collections from DB |
-| `/products` | Server | Catalog grid; filters `?category=candle|perfume`, `?collection=…` |
+| `/products` | Server | Catalog grid; filters `?category=candle|perfume|edp|edt|edc|body-mist|hair-perfume`, `?collection=…` |
 | `/products/[slug]` | Server | Detail: image, scent notes, price, stock, qty picker, add-to-cart |
 | `/cart` | Client | Line items, qty ±, remove, subtotal, checkout CTA |
 | `/checkout` | Client | Contact + delivery form, order summary, **Pay with Paystack** |
@@ -82,7 +83,7 @@ React context + `localStorage`. Stores id, slug, name, price_kobo, image, qty. H
 4. Verification is **server-side only**: `GET /transaction/verify/:reference` must return `success` with an amount matching the order total; the redirect alone is never proof of payment. Order marked `paid`.
 5. Mailgun confirmation email fires on first successful verification; `email_sent_at` guards against duplicates; failures are logged and never block the customer.
 
-**Demo mode (clearly labeled):** when `PAYSTACK_SECRET_KEY` is absent, checkout creates the order and the success page confirms it with a visible "Demo mode — no payment was taken" badge. When Supabase env is absent, a documented in-memory store with the same 12 seeded products keeps the site fully browsable.
+**Demo mode (clearly labeled):** when `PAYSTACK_SECRET_KEY` is absent, checkout creates the order and the success page confirms it with a visible "Demo mode — no payment was taken" badge. When Supabase env is absent, a documented in-memory store with the same 19 seeded products across 7 kinds keeps the site fully browsable.
 
 ### 3.4 Payments (Paystack)
 - NGN only; amounts in kobo (×100), integers.
@@ -102,7 +103,7 @@ React context + `localStorage`. Stores id, slug, name, price_kobo, image, qty. H
 ### 3.7 Database (Supabase Postgres) — `supabase/migration.sql` + `supabase/seed.sql`
 ```sql
 products     (id uuid pk default gen_random_uuid(), slug text unique not null, name text not null,
-              description text, category text not null check (category in ('candle','perfume')),
+              description text, category text not null check (category in ('candle','perfume','edp','edt','edc','body-mist','hair-perfume')),
               collection text, price_kobo int not null check (price_kobo > 0), scent_notes text[],
               image_url text, stock int not null default 0, featured bool not null default false,
               created_at timestamptz not null default now())
@@ -121,7 +122,7 @@ subscribers  (id uuid pk default gen_random_uuid(), email text unique not null,
               created_at timestamptz not null default now())
 ```
 - RLS: public `SELECT` on `products`; `subscribers` insert-only via service role; `orders`/`order_items` written only with the service-role key (never exposed to the browser).
-- Seed: 12 products (6 candles, 6 perfumes) across the 4 collections with verified Pexels photography.
+- Seed: 19 products across 7 kinds (6 candles, 4 perfumes, 3 eau de parfum, 2 eau de toilette, 1 eau de cologne, 2 body mists, 1 hair perfume) in the 4 collections, with verified Pexels photography.
 
 ---
 

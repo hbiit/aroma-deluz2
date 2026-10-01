@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { COLLECTIONS, getFeaturedProducts } from "@/lib/products";
+import { COLLECTIONS, KIND_BADGE, KIND_TAGLINES, PRODUCT_KINDS, getFeaturedProducts } from "@/lib/products";
 import { ProductCard } from "@/components/product-card";
 
 const HERO_VIDEO =
@@ -148,10 +148,34 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* ============ 4b · SHOP BY PRODUCT TYPE ============ */}
+      <section className="border-y border-purple-deep/10 bg-ivory py-14 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 md:px-8">
+          <p className="eyebrow text-center">The fragrance wardrobe</p>
+          <h2 className="section-title mt-2 text-center">Shop by Product Type</h2>
+          <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-7">
+            {PRODUCT_KINDS.map((kind) => (
+              <Link
+                key={kind}
+                href={`/products?category=${kind}`}
+                className="group flex flex-col items-center gap-2 border border-purple-deep/15 bg-cream px-3 py-6 text-center transition hover:border-gold hover:shadow-md"
+              >
+                <span className="font-serif text-lg leading-tight text-purple-deep transition group-hover:text-gold">
+                  {KIND_BADGE[kind]}
+                </span>
+                <span className="text-[0.6rem] tracking-[0.18em] text-purple-ink/60 uppercase">
+                  {KIND_TAGLINES[kind]}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ============ 5 · FEATURED PRODUCTS ============ */}
       <section className="bg-ivory py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <h2 className="section-title text-center">Featured Candles & Perfumes</h2>
+          <h2 className="section-title text-center">Featured Candles & Fragrances</h2>
           <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
             {featured.map((p) => (
               <ProductCard key={p.id} product={p} />
@@ -162,7 +186,7 @@ export default async function HomePage() {
               href="/products"
               className="text-[0.7rem] font-semibold tracking-[0.25em] text-purple-deep uppercase transition hover:text-gold"
             >
-              View all candles & perfumes →
+              View all candles & fragrances →
             </Link>
           </div>
         </div>
