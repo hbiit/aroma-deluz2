@@ -107,3 +107,12 @@ supabase/                  # migration.sql + seed.sql (run in SQL Editor)
 - **Client prices are never trusted**: the server re-prices every cart from the DB before creating an order.
 - **The payment redirect is never trusted**: orders become `paid` only after `GET /transaction/verify/:reference` returns `success` with a matching amount.
 - **Emails are sent exactly once** per order, and never block the customer.
+
+## Deploy
+
+The shop deploys to **Vercel** with **GitHub auto-deploy**: pushing to `main`
+triggers the [CI workflow](.github/workflows/ci.yml) (lint · typecheck ·
+build) and Vercel ships the commit to production; pull requests get preview
+URLs. The full runbook lives in [DEPLOY.md](DEPLOY.md) — in short: create the
+GitHub repo, push, import into Vercel, done. Without environment variables
+the deployed site runs in clearly labeled demo mode.
