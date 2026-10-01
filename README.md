@@ -35,9 +35,13 @@ falls back to the demo catalog instead of erroring.
 5. Copy the **Client ID** and **Client secret** into Supabase Dashboard → **Authentication → Providers → Google** → enable.
 6. In Supabase **Authentication → URL Configuration**, add `http://localhost:3000/**` (and your production URL) to Redirect URLs.
 
-Restart `npm run dev`. The header's **Sign in** button now runs Google OAuth;
-signed-in orders are linked to the user and checkout pre-fills nothing private
-without consent. Guest checkout always remains available.
+Email + password sign-in and sign-up work too via the dedicated **/signin**
+page — the **Email** provider is on by default, and Supabase sends
+confirmation mails from its built-in sender (no Mailgun setup needed for auth).
+
+Restart `npm run dev`. The header's **Sign in** button now opens the sign-in
+page; signed-in orders are linked to the user and checkout pre-fills contact
+details from the account. Guest checkout always remains available.
 
 ## 3 · Paystack (NGN payments, test mode)
 

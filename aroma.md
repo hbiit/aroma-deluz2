@@ -68,6 +68,7 @@ Interior pages keep the same language: cream/ivory backgrounds, purple bands, go
 | `/cart` | Client | Line items, qty ±, remove, subtotal, checkout CTA |
 | `/checkout` | Client | Contact + delivery form, order summary, **Pay with Paystack** |
 | `/checkout/success` | Server | Server-side verification; shows confirmed order |
+| `/signin` | Client | Sign in / sign up: Google + email/password, `?next=` return, demo notice |
 | `/auth/callback` | Route handler | Supabase OAuth code exchange |
 | `POST /api/checkout` | API | Re-price cart from DB, create pending order, initialize Paystack |
 | `GET /api/orders/[reference]` | API | Verify via Paystack, mark paid, send Mailgun email (once) |
@@ -90,10 +91,11 @@ React context + `localStorage`. Stores id, slug, name, price_kobo, image, qty. H
 - Test keys in dev; `callback_url` passed per-request so localhost works.
 - Reference = order id → idempotent verification.
 
-### 3.5 Auth (Google via Supabase)
+### 3.5 Auth (Google + email via Supabase)
 - Google Cloud Console: OAuth consent screen + Web client; redirect `https://<ref>.supabase.co/auth/v1/callback`; client ID/secret pasted into Supabase Auth settings.
-- App: `@supabase/ssr` cookie sessions, `middleware.ts` session refresh, `/auth/callback` exchange, header button toggles Sign in / account + Sign out.
+- App: `@supabase/ssr` cookie sessions, `middleware.ts` session refresh, `/auth/callback` exchange, header button routes to `/signin` (or shows account + Sign out).
 - Guests may check out; signed-in orders link `user_id` and pre-fill contact details.
+- `/signin` page: tabbed Sign in / Create account with Google OAuth and email+password (sign-up stores the full name in user metadata; confirmation mail comes from Supabase's built-in sender). `?next=` returns users to where they started; without Supabase credentials the page shows a labeled demo notice.
 
 ### 3.6 Emails (Mailgun)
 - `mailgun.js` v4 + `form-data`, server-side only.
